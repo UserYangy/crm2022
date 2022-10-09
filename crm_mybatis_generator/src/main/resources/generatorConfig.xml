@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- dtd文件没找到报错【可以无视它】 -->
+
+<generatorConfiguration>
+    <properties resource="generator.properties"></properties>
+    <!--指定连接数据库的JDBC 驱动包所在位置，指定到你本机的完整路径  【要改！！！！！】
+            注意：当前的版本要和pom.xml中配置mysql-connector-java版本一致
+            点击idea右侧的maven，点击该项目下的Depedencies就可以看到版本号 -->
+    <classPathEntry location="${jdbc.driverLocation}" />
+    <!--  targetRuntime 采用MyBatis3的版本  -->
+    <context id="default" targetRuntime="MyBatis3">
+        <!-- 配置实现序列化
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />  -->
+
+        <commentGenerator>
+            <!--            是否去除日期那行注释-->
+            <property name="suppressDate" value="false" />
+            <!-- 是否删除自动生成的英文注释 true 删除  false 不删除 -->
+            <property name="suppressAllComments" value="false" />
+        </commentGenerator>
+
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码  【要改！！！！！】 -->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+        <!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
+            connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:yycg"
+            userId="yycg"
+            password="yycg">
+        </jdbcConnection> -->
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"></property>
+        </javaTypeResolver>
+
+        <!--
+        生成model类
+        targetPackage 生成的包名
+        targetProject 指定src/main/java相对于当前项目src/main/java下  【要改！！！！！】-->
+        <javaModelGenerator targetPackage="com.yy.crm.workbench.domain"
+                            targetProject="E:/01_JW/13_SSM_CRM/CRM/crm/src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+            <!--是否对domain添加构造函数，true添加，false不添加-->
+            <property name="constructorBased" value="false" />
+            <!--是否对char类型的列的数据进行trim操作-->
+            <property name="trimStrings" value="true" />
+            <!--建立domain对象是否不可改变，即生成的domain对象不会有setter方法-->
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+
+        <!-- 生成MyBatis的Mapper.xml文件  【要改！！！！！】 -->
+        <!--    Mapper.xml和mapper接口同级-->
+        <sqlMapGenerator targetPackage="com.yy.crm.workbench.mapper"
+                         targetProject="E:/01_JW/13_SSM_CRM/CRM/crm/src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+        <!--    Mapper.xml在resources/mappers中-->
+        <!--<sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>-->
+
+        <!-- 生成MyBatis的Mapper接口文件  【要改！！！！！】 -->
+        <javaClientGenerator targetPackage="com.yy.crm.workbench.mapper"
+                             targetProject="E:/01_JW/13_SSM_CRM/CRM/crm/src/main/java"
+                                type="XMLMAPPER">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 指定数据库表  【要改！！！！！】
+            tableName 数据的表明
+            domainObjectName 实体类的名称-->
+        <!--        <table schema="" tableName="t_student" domainObjectName="Student"></table>
+        <table tableName="tbl_activity_remark" domainObjectName="ActivityRemark"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>-->
+
+        <!-- 有些表的字段需要指定java类型
+         <table schema="" tableName="">
+            <columnOverride column="" javaType="" />
+        </table> -->
+    </context>
+</generatorConfiguration>
